@@ -1,5 +1,6 @@
 import Image from 'next/image';
 import {auth0} from '@/lib/auth0';
+import Link from 'next/link';
 
 export default async function Home() {
   const session = await auth0.getSession()
@@ -27,11 +28,9 @@ export default async function Home() {
         </ol>
 
         <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
+          <Link
+            href={'/en/about'}
             className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
           >
             <Image
               className="dark:invert"
@@ -40,8 +39,8 @@ export default async function Home() {
               width={20}
               height={20}
             />
-            Deploy now
-          </a>
+            About us
+          </Link>
           {!session ?
             (
               <a
@@ -53,7 +52,7 @@ export default async function Home() {
             ) :
             <a
               className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:min-w-44"
-              href="/auth/logout?returnTo=http://localhost:3000/about?message=forced_logout"
+              href="/auth/logout?returnTo=http://localhost:3000/en/about?message=forced_logout"
             >
               Logout
             </a> }
