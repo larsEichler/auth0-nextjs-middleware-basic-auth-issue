@@ -1,25 +1,20 @@
 import Image from 'next/image';
-import Link from 'next/link';
 import {auth0} from '@/lib/auth0';
+import { getProducts } from '@/lib/requests/get-products';
+import ProductList from '@/app/components/ProductList/ProductList';
 
 export const revalidate = 0;
 
-export default async function AboutPage() {
-
-  const session = await auth0.getSession()
+export default async function ProductsPage() {
+  await auth0.getSession()
+  const products = await getProducts();
 
   return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-col gap-8 row-start-2 items-center sm:items-start">
+    <div className="min-h-screen p-8 pb-20 gap-16 font-[family-name:var(--font-geist-sans)]">
+      <main className="flex flex-col gap-8 row-start-2">
 
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <h1>About Page</h1>
-        </div>
+        {products?.products && <ProductList products={products.products} />}
 
-        <p>Session: {JSON.stringify(session)}</p>
-        <p>
-          <Link href={'/'}>Home</Link>
-        </p>
       </main>
       <footer className="row-start-3 flex gap-6 flex-wrap items-center justify-center">
         <a
